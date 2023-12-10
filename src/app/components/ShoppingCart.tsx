@@ -1,7 +1,7 @@
-// ShoppingCart.tsx
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { removeItemFromCart } from '../redux/actions';
+import { removeItemFromCart, updateQuantity } from '../redux/actions';
+
 interface CartItem {
   id: number;
   name: string;
@@ -24,7 +24,14 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems }) => {
     dispatch(removeItemFromCart(itemId));
   };
 
-  // Use useEffect to update localStorage whenever cartItems change
+  const handleQuantityChange = (itemId: number, newQuantity: number) => {
+    const clampedQuantity = Math.max(newQuantity, 0);
+    if (clampedQuantity === 0) {
+      handleRemoveFromCart(itemId);
+    } else {
+      dispatch(updateQuantity({ id: itemId, quantity: clampedQuantity }));
+    }
+  };
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
@@ -37,6 +44,11 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems }) => {
           <li key={item.id}>
             {item.name} - Quantity: {item.quantity} - ${item.price * item.quantity}
             <button onClick={() => handleRemoveFromCart(item.id)}>Remove from Cart</button>
+            <input
+              type="number"
+              value={item.quantity}
+              onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
+            />
           </li>
         ))}
       </ul>

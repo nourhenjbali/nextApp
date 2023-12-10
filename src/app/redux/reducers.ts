@@ -1,5 +1,5 @@
 import { createReducer, PayloadAction } from '@reduxjs/toolkit';
-import { setProducts, addItemToCart, removeItemFromCart } from './actions';
+import { setProducts, addItemToCart, removeItemFromCart ,updateQuantity } from './actions';
 
 interface Product {
   id: number;
@@ -32,17 +32,25 @@ const rootReducer = createReducer(initialState, (builder) => {
       
     })
     .addCase(addItemToCart, (state, action: PayloadAction<CartItem>) => {
-      const { id } = action.payload;
+      const { id, quantity } = action.payload;
       const existingItem = state.cart.find((item) => item.id === id);
 
       if (existingItem) {
-        existingItem.quantity += action.payload.quantity;
+        existingItem.quantity += quantity;
       } else {
         state.cart.push(action.payload);
       }
     })
     .addCase(removeItemFromCart, (state, action: PayloadAction<number>) => {
       state.cart = state.cart.filter((item) => item.id !== action.payload);
+    })
+    .addCase(updateQuantity, (state, action: PayloadAction<{ id: number; quantity: number }>) => {
+      const { id, quantity } = action.payload;
+      const existingItem = state.cart.find((item) => item.id === id);
+
+      if (existingItem) {
+        existingItem.quantity = quantity;
+      }
     });
 });
 

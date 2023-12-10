@@ -1,5 +1,3 @@
-// src/app/pages/products.tsx
-
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts ,addItemToCart } from "../redux/actions";
@@ -18,7 +16,6 @@ export interface ProductsState {
 
 export interface RootState {
   products: ProductsState;
-  // Add other slices as needed
 }
 
 const ProductsPage: React.FC = () => {
@@ -26,7 +23,6 @@ const ProductsPage: React.FC = () => {
   const products = useSelector((state: any) => state.products);
   const cartItems = useSelector((state: any) => state.cart);
 
-  // Simulate fetching products (replace with actual API call)
   useEffect(() => {
     const fetchedProducts = [
       { id: 1, name: "Product 1", price: 10 },
@@ -40,8 +36,8 @@ const ProductsPage: React.FC = () => {
     console.log(products);
   }, [dispatch]);
 
-  const handleAddToCart = (product: Product) => {
-    dispatch(addItemToCart({ ...product, quantity: 1 }));
+  const handleAddToCart = (product: Product, quantity: number) => {
+    dispatch(addItemToCart({ ...product, quantity }));
   };
 
   return (

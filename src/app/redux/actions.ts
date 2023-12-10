@@ -16,3 +16,4 @@ interface Product {
 export const setProducts = createAction<Product[]>('setProducts');
 export const addItemToCart = createAction<CartItem>('addItemToCart');
 export const removeItemFromCart = createAction<number>('removeItemFromCart');
+export const updateQuantity = createAction<{ id: number; quantity: number }>('updateQuantity');
