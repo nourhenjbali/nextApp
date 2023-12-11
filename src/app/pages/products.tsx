@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts ,addItemToCart } from "../redux/actions";
+import { setProducts, addItemToCart } from "../redux/actions";
 import ProductList from "../components/ProductList";
 import ShoppingCart from "../components/ShoppingCart";
-
+import "../styles/main.scss";
 export interface Product {
   id: number;
   name: string;
@@ -30,6 +30,7 @@ const ProductsPage: React.FC = () => {
       { id: 3, name: "Product 3", price: 50 },
       { id: 4, name: "Product 4", price: 60 },
       { id: 5, name: "Product 5", price: 30 },
+      { id: 6, name: "Product 6", price: 40 },
     ];
 
     dispatch(setProducts(fetchedProducts));
@@ -41,13 +42,14 @@ const ProductsPage: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Product Listing Page</h1>
-      <ProductList products={products} onAddToCart={handleAddToCart} />
-      <ShoppingCart cartItems={cartItems} />
-
+    <div className="page-container">
+      <div className="product-list-container">
+        <ProductList products={products} onAddToCart={handleAddToCart} />
+      </div>
+      <div className="shopping-cart-container">
+        <ShoppingCart cartItems={cartItems} />
+      </div>
     </div>
   );
 };
-
 export default ProductsPage;

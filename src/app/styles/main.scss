@@ -1,0 +1,14 @@
+.page-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .product-list-container {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .shopping-cart-container {
+    flex: 1;
+  }

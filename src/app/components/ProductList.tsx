@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import "../styles/ProductList.scss";
 
 interface Product {
   id: number;
@@ -12,19 +13,29 @@ interface ProductListProps {
 }
 
 const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart }) => {
-  const [productQuantities, setProductQuantities] = useState<{ [key: number]: number }>({});
+  const [productQuantities, setProductQuantities] = useState<{
+    [key: number]: number;
+  }>({});
 
   return (
-    <div>
+    <div className="product-list">
       <h2>Products</h2>
       <ul>
         {products &&
           products.map((product) => (
             <li key={product.id}>
-              {product.name} - ${product.price}
-              <button onClick={() => onAddToCart(product, productQuantities[product.id] || 1)}>
-                Add to Cart
-              </button>
+              <div className="product-info">
+                <span>
+                  {product.name} - ${product.price}
+                </span>
+                <button
+                  onClick={() =>
+                    onAddToCart(product, productQuantities[product.id] || 1)
+                  }
+                >
+                  Add to Cart
+                </button>
+              </div>
               <input
                 type="number"
                 value={productQuantities[product.id] || 1}
@@ -34,6 +45,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart }) => {
                     [product.id]: parseInt(e.target.value) || 1,
                   }))
                 }
+                className="quantity-input"
               />
             </li>
           ))}
@@ -41,6 +53,4 @@ const ProductList: React.FC<ProductListProps> = ({ products, onAddToCart }) => {
     </div>
   );
 };
-
 export default ProductList;
-
