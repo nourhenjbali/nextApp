@@ -9,7 +9,6 @@
   ],
   "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
   "rules": {
-    // Additional rules or overrides go here
   },
   "settings": {
     "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
